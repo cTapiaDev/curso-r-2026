@@ -11,8 +11,8 @@ El curso se estructura en 5 sesiones de 3 horas cada una. El enfoque pedagógico
 | Módulo | Enfoque Principal | Tecnologías Clave | Estado |
 |----|----|----|----|
 | Módulo I | Programación y Manipulación Avanzada | `tidyverse`, `purrr`, `data.table` | 🟢 Disponible |
-| Módulo II | Automatización y Workflows | `purrr`, iteraciones, control de flujo | 🟡 En desarrollo |
-| Módulo III | Visualización Estratégica de Datos | `ggplot2`, customización avanzada | ⚪ Planificado |
+| Módulo II | Automatización y Workflows | `purrr`, iteraciones, control de flujo | 🟢 Disponible |
+| Módulo III | Visualización Estratégica de Datos | `ggplot2`, customización avanzada | 🟡 En desarrollo|
 | Módulo IV | Análisis Funcional y Modelado Básico | `tidymodels`, inferencia estadística | ⚪ Planificado |
 | Módulo V | Despliegue y Reportería Dinámica | `RMarkdown`, `Shiny` | ⚪ Planificado |
 
