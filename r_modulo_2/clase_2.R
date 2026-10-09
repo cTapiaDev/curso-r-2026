@@ -103,3 +103,76 @@ boletin_fechas <- boletin_limpio |>
     # Redondear
     edad_oficial = floor(edad_actual)
   )
+
+# Transformación a formato TIDY (pivot_longer)
+# ¿Por qué?: Los modelos estadísticos y librerías gráficas como ggplot2 exigen
+# que las métricas estén en filas.
+boletin_largo <- boletin_fechas |>
+  select(id_alumno, curso, nota_matematica, nota_lenguaje, nota_ciencias) |>
+  pivot_longer(
+    cols = starts_with("nota_"),
+    names_to = "asignatura",
+    values_to = "calificacion"
+  ) |>
+  mutate(asignatura = str_replace(asignatura, "nota_", ""))
+
+resumen_gerencial <- boletin_largo |>
+  pivot_wider(
+    names_from = "asignatura",
+    values_from = "calificacion"
+  )
+
+
+# ==============================================================================
+# AUTOMATIZACIÓN Y WORKFLOWS
+# ==============================================================================
+
+# AGRUPAR ELEMENTOS
+reporte_cursos <- boletin_largo |>
+  group_by(curso, asignatura) |>
+  summarise(
+    promedio_real = mean(calificacion),
+    nota_maxima = max(calificacion),
+    alumnos_riesgo = sum(calificacion < 4.0),
+    .groups = "drop"
+  ) |>
+  arrange(curso, desc(promedio_real))
+
+
+# Iteración / Ciclo / Bucle
+archivos_asistencia <- list(
+  marzo = tibble(id_alumno = 1:100, asistencia = round(runif(100, 60, 100), 1)),
+  abril = tibble(id_alumno = 1:100, asistencia = round(runif(100, 50, 100), 1)),
+  mayo = tibble(id_alumno = 1:100, asistencia = round(runif(100, 70, 100), 1))
+)
+
+asistencia_historica <- archivos_asistencia |>
+  map_df(\(df) df, .id = "mes")
+
+# Creación de funciones
+auditar_rendimiento <- \(df) {
+  df |>
+    mutate(
+      alerta_academica = case_when(
+        calificacion < 4.0 ~ "Peligro inminente",
+        calificacion >= 4.0 & calificacion <= 5.0 ~ "Observación",
+        .default = "Adecuado"
+      )
+    )
+}
+
+# Pipeline
+reporte_final_colegio <- asistencia_historica |>
+  group_by(id_alumno) |>
+  summarise(asistencia_anual = mean(asistencia), .groups = "drop") |>
+  
+  left_join(boletin_largo, by = "id_alumno") |>
+  
+  auditar_rendimiento() |>
+  
+  filter(alerta_academica == "Peligro inminente", asistencia_anual < 80) |>
+  
+  arrange(asistencia_anual)
+
+
+glimpse(reporte_final_colegio)
