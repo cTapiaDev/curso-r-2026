@@ -16,6 +16,9 @@ datos_taller <- tibble(
 # de los alumnos que están reprobando la asignatura (nota menor a 4.0).
 # Tarea: Filtra la tabla original para mostrar solo a estos estudiantes.
 
+alumnos_reprobados <- datos_taller |>
+  filter(nota_final < 4.0)
+
 
 # ==============================================================================
 # 🟢 EJERCICIO 2: LIMPIEZA VISUAL Y RANKING (Seleccionar y Ordenar)
@@ -23,6 +26,10 @@ datos_taller <- tibble(
 # Contexto: Se acerca la ceremonia de premiación y necesitamos una lista limpia.
 # Tarea: Quédate solo con las columnas "estudiante" y "nota_final". 
 # Luego, ordena a los alumnos desde la nota más alta a la más baja.
+
+t1_lista_premiacion <- datos_taller |>
+  select(estudiante, nota_final) |>
+  arrange(desc(nota_final))
 
 
 # ==============================================================================
@@ -32,12 +39,24 @@ datos_taller <- tibble(
 # Tarea: Crea una columna nueva llamada 'alerta_asistencia'. 
 # Si el porcentaje es menor a 80, debe decir "Llamar a casa", de lo contrario "Al día".
 
+t1_auditoria_asistencia <- datos_taller |>
+  mutate(
+    alerta_asistencia = if_else(porcentaje_asistencia < 80, "Llamar a casa", "Al día")
+  )
+
+
 
 # ==============================================================================
 # 🟢 EJERCICIO 4: TABLAS DINÁMICAS BÁSICAS (Agrupar y Resumir)
 # ==============================================================================
 # Contexto: Fin de semestre. Necesitamos comparar el rendimiento entre los cursos.
 # Tarea: Agrupa los datos por curso y calcula la nota promedio de cada uno.
+
+t1_rendimiento_cursos <- datos_taller |>
+  group_by(curso) |>
+  summarise(
+    promedio_notas = mean(nota_final)
+  )
 
 
 # ==============================================================================
@@ -47,3 +66,8 @@ datos_taller <- tibble(
 # Tarea: Toma los datos originales, filtra solo a los de "Primero Medio", 
 # crea una columna que calcule cuántos puntos les faltaron para el 7.0, 
 # y ordénalos para ver quién estuvo más cerca.
+
+t1_reporte_primero <- datos_taller |>
+  filter(curso == "Primero Medio") |>
+  mutate(puntos_faltantes = 7.0 - nota_final) |>
+  arrange(puntos_faltantes)
