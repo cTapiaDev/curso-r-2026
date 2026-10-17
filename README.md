@@ -14,7 +14,6 @@ El curso se estructura en 5 sesiones de 3 horas cada una. El enfoque pedagógico
 | Módulo II | Automatización y Workflows | `purrr`, iteraciones, control de flujo | 🟢 Disponible |
 | Módulo III | Visualización Estratégica de Datos | `ggplot2`, customización avanzada | 🟢 Disponible |
 | Módulo IV | Análisis Funcional y Modelado Básico | `tidymodels`, inferencia estadística | 🟢 Disponible |
-| Módulo V | Despliegue y Reportería Dinámica | `RMarkdown`, `Shiny` | 🟡 En desarrollo |
 
 ## 🗂️ Organización del Repositorio
 
