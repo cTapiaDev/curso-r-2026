@@ -19,11 +19,11 @@ El curso se estructura en 5 sesiones de 3 horas cada una. El enfoque pedagógico
 
 El espacio de trabajo está estandarizado para facilitar el seguimiento de las clases y la entrega de proyectos:
 
-- `r_modulo_1` a `r_modulo_5`: Carpetas dedicadas a cada sesión. Contienen los scripts iniciales, los datos crudos para los talleres y las pautas de resolución.
+- `r_modulo_1` a `r_modulo_4`: Carpetas dedicadas a cada sesión. Contienen los scripts iniciales, los datos crudos para los talleres y las pautas de resolución.
 
 - `diapositivas/`: Material de apoyo teórico y arquitecturas conceptuales presentadas durante las sesiones.
 
-- `proyecto_final/`: Especificaciones y rúbricas para el desarrollo del pipeline integrador de 7 ejercicios.
+- `evaluaciones/`: Especificaciones para el desarrollo del pipeline integrador de 7 ejercicios y la evaluación teórica.
 
 ## 🛠️ Tecnologías y Requisitos
 
