@@ -26,8 +26,16 @@ datos_taller_4 <- tibble(
 # 4. Agrega una línea vertical (geom_vline) en el corte de asistencia 70 (color azul, línea punteada "dashed").
 # 5. Aplica formato de coma decimal en el eje Y con scale_y_continuous().
 
-grafico_umbrales <- ggplot(data = datos_taller_4, aes(x = ..., y = ..., color = ...)) +
+grafico_umbrales <- ggplot(data = datos_taller_4, aes(x = asistencia_semestral, y = promedio_semestral, color = estado_previo)) +
   geom_point(size = 3, alpha = 0.7) +
+  geom_hline(yintercept = 4.0, color = "red", linetype = "dashed", linewidth = 1) +
+  geom_vline(xintercept = 70, color = "blue", linetype = "dashed", linewidth = 1) +
+  scale_y_continuous(labels = label_number(accuracy = 0.1, decimal.mark = ",")) +
+  scale_color_manual(values = c("Aprobado" = "#26BF35", "Reprobado" = "#E62020")) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+print(grafico_umbrales)
   
   
 # 🎯 EJERCICIO 2: CLASIFICACIÓN POR CUADRANTES Y CONTEO DE FRECUENCIAS (case_when + n())
@@ -43,8 +51,20 @@ grafico_umbrales <- ggplot(data = datos_taller_4, aes(x = ..., y = ..., color = 
 #    para crear la columna 'total_casos'.
   
 base_clasificada <- datos_taller_4 |> 
+  mutate(
+    protocolo_intervencion = case_when(
+      promedio_semestral < 4.0 & asistencia_semestral < 70  ~ "Retención Crítica",
+      promedio_semestral < 4.0 & asistencia_semestral >= 70 ~ "Nivelación Académica",
+      promedio_semestral >= 4.0 & asistencia_semestral < 70 ~ "Alerta de Asistencia",
+      .default = "Situación Regular"
+    )
+  )
   
 resumen_protocolos <- base_clasificada |> 
+  group_by(protocolo_intervencion) |>
+  summarise(
+    total_casos = n()
+  )
   
   
 # 🎯 EJERCICIO 3: VISUALIZACIÓN DE FRECUENCIAS Y FOCOS CRÍTICOS (geom_col + facet_wrap)
@@ -56,8 +76,19 @@ resumen_protocolos <- base_clasificada |>
 # 3. Separa el gráfico en paneles por 'jornada' usando facet_wrap().
   
 conteo_por_jornada <- base_clasificada |> 
+  group_by(jornada, protocolo_intervencion) |>
+  summarise(
+    total_casos = n(),
+    .group = "drop"
+  )
   
-grafico_protocolos <- ggplot(data = conteo_por_jornada, aes(x = ..., y = ..., fill = ...)) +
+grafico_protocolos <- ggplot(data = conteo_por_jornada, aes(x = total_casos, y = protocolo_intervencion, fill = protocolo_intervencion)) +
+  geom_col() +
+  facet_wrap(~ jornada) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+print(grafico_protocolos)
   
   
 # 🎯 EJERCICIO 4: FILTRADO, ORDENAMIENTO Y PERSISTENCIA DE DATOS (arrange + write_csv)
@@ -69,3 +100,7 @@ grafico_protocolos <- ggplot(data = conteo_por_jornada, aes(x = ..., y = ..., fi
 # 3. Exporta la tabla resultante al archivo "nomina_retencion_critica.csv" usando write_csv().
   
 nomina_critica <- base_clasificada |> 
+  filter(protocolo_intervencion == "Retención Crítica") |>
+  arrange(promedio_semestral)
+
+write_csv(nomina_critica, "nomina_retencion_critica.csv")
