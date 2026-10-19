@@ -104,3 +104,4 @@ nomina_critica <- base_clasificada |>
   arrange(promedio_semestral)
 
 write_csv(nomina_critica, "nomina_retencion_critica.csv")
+write_delim(nomina_critica, "nomina_retencion_critica.csv", delim = ";")

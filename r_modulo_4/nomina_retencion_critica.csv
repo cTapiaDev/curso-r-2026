@@ -1,10 +1,10 @@
-id_estudiante,jornada,area_academica,asistencia_semestral,promedio_semestral,estado_previo,protocolo_intervencion
-1050,Diurna,Humanidades,58,2.2,Reprobado,Retención Crítica
-1054,Vespertina,Tecnología,67,2.3,Reprobado,Retención Crítica
-1022,Vespertina,Humanidades,62,2.4,Reprobado,Retención Crítica
-1028,Vespertina,Ciencias Exactas,67,2.8,Reprobado,Retención Crítica
-1071,Diurna,Ciencias Exactas,65,2.9,Reprobado,Retención Crítica
-1057,Diurna,Humanidades,58,3.5,Reprobado,Retención Crítica
-1037,Diurna,Ciencias Exactas,67,3.6,Reprobado,Retención Crítica
-1032,Diurna,Tecnología,64,3.7,Reprobado,Retención Crítica
-1025,Vespertina,Humanidades,58,3.9,Reprobado,Retención Crítica
+id_estudiante;jornada;area_academica;asistencia_semestral;promedio_semestral;estado_previo;protocolo_intervencion
+1050;Diurna;Humanidades;58;2.2;Reprobado;Retención Crítica
+1054;Vespertina;Tecnología;67;2.3;Reprobado;Retención Crítica
+1022;Vespertina;Humanidades;62;2.4;Reprobado;Retención Crítica
+1028;Vespertina;Ciencias Exactas;67;2.8;Reprobado;Retención Crítica
+1071;Diurna;Ciencias Exactas;65;2.9;Reprobado;Retención Crítica
+1057;Diurna;Humanidades;58;3.5;Reprobado;Retención Crítica
+1037;Diurna;Ciencias Exactas;67;3.6;Reprobado;Retención Crítica
+1032;Diurna;Tecnología;64;3.7;Reprobado;Retención Crítica
+1025;Vespertina;Humanidades;58;3.9;Reprobado;Retención Crítica
